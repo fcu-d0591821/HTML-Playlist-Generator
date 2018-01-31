@@ -33,7 +33,7 @@
         });
         document.getElementById("download").addEventListener("click", function(){
             let downloadLink = document.createElement("a");
-            let text = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>1</title>\n</head>\n<body>" + outputDiv.innerText + "</body>\n</html>";
+            let text = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>1</title>\n</head>\n<body>\n" + outputDiv.innerText + "</body>\n</html>";
             downloadLink.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
             downloadLink.setAttribute("download", "output.html");
             downloadLink.style.display = "none";
