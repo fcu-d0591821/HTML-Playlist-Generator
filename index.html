@@ -17,13 +17,15 @@
         document.getElementById("filesSelect").addEventListener("change", function () {
             let files = this.files;
             for (let i = 0; i < files.length; i++) {
+                let name = files[i].name;
                 let label = document.createElement("label");
-                label.textContent = files[i].name;
+                label.textContent = name;
                 let button = document.createElement("button");
                 button.textContent = "add";
-                button.value = files[i].name;
+                button.value = name;
                 button.addEventListener("click", () => {
-                    outputDiv.textContent += `<audio src="${this.value}" controls="controls"></audio>${this.value}<br>`;
+                    let text = document.createTextNode(`<audio src="${name}" controls="controls"></audio>${name}<br>`);
+                    outputDiv.appendChild(text);
                     outputDiv.appendChild(document.createElement("br"));
                 });
                 fileList.appendChild(button);
@@ -34,15 +36,15 @@
         document.getElementById("download").addEventListener("click", () => {
             let downloadLink = document.createElement("a");
             let text = `<!DOCTYPE html>
-            <html>
-            <head>
-            <meta charset=\"utf-8\">
-            <title>1</title>
-            </head>
-            <body>
-            ${outputDiv.textContent}
-            </body>
-            </html>`;
+                <html>
+                <head>
+                <meta charset="utf-8">
+                <title>List</title>
+                </head>
+                <body>
+                ${outputDiv.textContent.replace(/(<br>)([^$])/g, "$1\n$2")}
+                </body>
+                </html>`.replace(/^\s{16}/, "");
             downloadLink.href = `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`;
             downloadLink.download = "output.html";
             downloadLink.click();
