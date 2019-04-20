@@ -14,16 +14,16 @@
     <script>
         var fileListDiv = document.getElementById("fileList");
         var outputDiv = document.getElementById("output");
-        document.getElementById("filesSelect").addEventListener("change", function(){
+        document.getElementById("filesSelect").addEventListener("change", function () {
             let files = this.files;
-            for(let i = 0; i < files.length; i++){
+            for (let i = 0; i < files.length; i++) {
                 let label = document.createElement("label");
-                label.innerHTML = files[i].name;
+                label.textContent = files[i].name;
                 let button = document.createElement("button");
-                button.innerHTML = "add";
-                button.setAttribute("value", files[i].name);
-                button.addEventListener("click", function(){
-                    outputDiv.innerText += "<audio src=\"" + this.value + "\" controls=\"controls\"></audio>" + this.value + "<br>";
+                button.textContent = "add";
+                button.value = files[i].name;
+                button.addEventListener("click", () => {
+                    outputDiv.textContent += `<audio src="${this.value}" controls="controls"></audio>${this.value}<br>`;
                     outputDiv.appendChild(document.createElement("br"));
                 });
                 fileList.appendChild(button);
@@ -31,15 +31,21 @@
                 fileList.appendChild(document.createElement("br"));
             }
         });
-        document.getElementById("download").addEventListener("click", function(){
+        document.getElementById("download").addEventListener("click", () => {
             let downloadLink = document.createElement("a");
-            let text = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>1</title>\n</head>\n<body>\n" + outputDiv.innerText + "</body>\n</html>";
-            downloadLink.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
-            downloadLink.setAttribute("download", "output.html");
-            downloadLink.style.display = "none";
-            document.body.appendChild(downloadLink);
+            let text = `<!DOCTYPE html>
+            <html>
+            <head>
+            <meta charset=\"utf-8\">
+            <title>1</title>
+            </head>
+            <body>
+            ${outputDiv.textContent}
+            </body>
+            </html>`;
+            downloadLink.href = `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`;
+            downloadLink.download = "output.html";
             downloadLink.click();
-            document.body.removeChild(downloadLink);
         });
     </script>
 </body>
