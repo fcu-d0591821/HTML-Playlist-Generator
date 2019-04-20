@@ -44,7 +44,7 @@
                 <body>
                 ${outputDiv.textContent.replace(/(<br>)([^$])/g, "$1\n$2")}
                 </body>
-                </html>`.replace(/^\s{16}/, "");
+                </html>`.replace(/^\s+/gm, "");
             downloadLink.href = `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`;
             downloadLink.download = "output.html";
             downloadLink.click();
